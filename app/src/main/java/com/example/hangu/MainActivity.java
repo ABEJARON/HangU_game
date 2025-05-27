@@ -10,10 +10,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.core.content.res.ResourcesCompat;
-
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,16 +36,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Hide the action bar to match reference style
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         setContentView(R.layout.activity_main);
 
         // UI references
         wordTextView = findViewById(R.id.wordTextView);
         attemptsTextView = findViewById(R.id.attemptsTextView);
-        lettersGrid = findViewById(R.id.lettersGrid);
+        lettersGrid = findViewById(R.id.letterButtonsGrid);
         categorySpinner = findViewById(R.id.categorySpinner);
         hangmanImageView = findViewById(R.id.hangmanImageView);
 
         setupCategorySpinner();
+
+        // Restart button setup
+        Button restartButton = findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(v -> {
+            String category = (String) categorySpinner.getSelectedItem();
+            startNewGame(category);
+        });
     }
 
     private void setupCategorySpinner() {
@@ -67,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // no action
+                // No action needed
             }
         });
     }
@@ -80,11 +92,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupLetterButtons() {
         lettersGrid.removeAllViews();
-        // Create buttons A-Z
+
         for (char c = 'A'; c <= 'Z'; c++) {
             Button btn = new Button(this);
             btn.setText(String.valueOf(c));
+            btn.setTextSize(18);
+            btn.setAllCaps(true);
+            btn.setTypeface(ResourcesCompat.getFont(this, R.font.joti_one));
+            btn.setPadding(8, 8, 8, 8);
             btn.setOnClickListener(v -> onLetterClicked(((Button) v).getText().toString().charAt(0)));
+
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = 0;
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            btn.setLayoutParams(params);
+
             lettersGrid.addView(btn);
         }
     }
@@ -111,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        // Format masked word with spaces
         StringBuilder spaced = new StringBuilder();
         for (char c : game.getMaskedWord().toCharArray()) {
             spaced.append(c).append(" ");
@@ -120,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         wordTextView.setText(spaced.toString().trim());
         wordTextView.setTypeface(ResourcesCompat.getFont(this, R.font.joti_one));
 
-        attemptsTextView.setText("Attempts left: " + game.getRemainingAttempts());
+        attemptsTextView.setText("Attempts left : " + game.getRemainingAttempts());
         int imageIndex = 6 - game.getRemainingAttempts();
         imageIndex = Math.max(0, Math.min(imageIndex, 6));
         hangmanImageView.setImageResource(hangmanImages[imageIndex]);

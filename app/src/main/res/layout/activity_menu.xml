@@ -18,24 +18,24 @@
         android:id="@+id/playImageView"
         android:layout_width="200dp"
         android:layout_height="127dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/play"
+        android:layout_marginBottom="5dp"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        android:src="@drawable/play" />
 
     <ImageView
         android:id="@+id/optionsImageView"
         android:layout_width="200dp"
-        android:layout_height="119dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/option"
+        android:layout_height="127dp"
+        android:layout_marginBottom="5dp"
         android:clickable="true"
-        android:focusable="true" />
+        android:focusable="true"
+        android:src="@drawable/option" />
 
     <ImageView
         android:id="@+id/exitImageView"
         android:layout_width="200dp"
-        android:layout_height="123dp"
+        android:layout_height="127dp"
         android:src="@drawable/exit"
         android:clickable="true"
         android:focusable="true" />

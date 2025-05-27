@@ -8,6 +8,9 @@ public class WordBank {
     static {
         categories.put("Animals", Arrays.asList("tiger", "panda", "zebra", "shark", "eagle"));
         categories.put("Foods", Arrays.asList("rice", "cake", "milk", "beef", "corn"));
+        categories.put("Countries", Arrays.asList("canada", "brazil", "japan", "france", "germany"));
+        categories.put("Colors", Arrays.asList("red", "blue", "green", "yellow", "violet"));
+        categories.put("Sports", Arrays.asList("soccer", "baseball", "tennis", "cricket", "hockey"));
     }
 
     public static Set<String> getCategories() {
