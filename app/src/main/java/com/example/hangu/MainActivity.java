@@ -21,23 +21,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView attemptsTextView;
     private GridLayout lettersGrid;
     private Spinner categorySpinner;
-    private ImageView hangmanImageView;
 
-    private final int[] hangmanImages = {
-            R.drawable.hangman0,
-            R.drawable.hangman1,
-            R.drawable.hangman2,
-            R.drawable.hangman3,
-            R.drawable.hangman4,
-            R.drawable.hangman5,
-            R.drawable.hangman6,
-    };
+    // Body part views
+    private ImageView[] bodyParts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Hide the action bar to match reference style
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -49,11 +40,19 @@ public class MainActivity extends AppCompatActivity {
         attemptsTextView = findViewById(R.id.attemptsTextView);
         lettersGrid = findViewById(R.id.letterButtonsGrid);
         categorySpinner = findViewById(R.id.categorySpinner);
-        hangmanImageView = findViewById(R.id.hangmanImageView);
+
+        // Map body parts
+        bodyParts = new ImageView[]{
+                findViewById(R.id.head),
+                findViewById(R.id.body),
+                findViewById(R.id.right_arm),
+                findViewById(R.id.left_arm),
+                findViewById(R.id.right_leg),
+                findViewById(R.id.left_leg)
+        };
 
         setupCategorySpinner();
 
-        // Restart button setup
         Button restartButton = findViewById(R.id.restartButton);
         restartButton.setOnClickListener(v -> {
             String category = (String) categorySpinner.getSelectedItem();
@@ -133,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
+        // Update word with spaces
         StringBuilder spaced = new StringBuilder();
         for (char c : game.getMaskedWord().toCharArray()) {
             spaced.append(c).append(" ");
@@ -141,11 +141,17 @@ public class MainActivity extends AppCompatActivity {
         wordTextView.setText(spaced.toString().trim());
         wordTextView.setTypeface(ResourcesCompat.getFont(this, R.font.joti_one));
 
-        attemptsTextView.setText("Attempts left : " + game.getRemainingAttempts());
-        int imageIndex = 6 - game.getRemainingAttempts();
-        imageIndex = Math.max(0, Math.min(imageIndex, 6));
-        hangmanImageView.setImageResource(hangmanImages[imageIndex]);
+        // Update attempts counter
+        int remaining = game.getRemainingAttempts();
+        attemptsTextView.setText("Attempts left : " + remaining);
 
+        // Update hangman body part visibility
+        int incorrectGuesses = 6 - remaining;
+        for (int i = 0; i < bodyParts.length; i++) {
+            bodyParts[i].setVisibility(i < incorrectGuesses ? View.VISIBLE : View.INVISIBLE);
+        }
+
+        // Update letter buttons (disable guessed ones)
         for (int i = 0; i < lettersGrid.getChildCount(); i++) {
             View child = lettersGrid.getChildAt(i);
             if (child instanceof Button) {

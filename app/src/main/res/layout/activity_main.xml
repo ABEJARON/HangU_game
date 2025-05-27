@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Category Spinner (now at the top) -->
+        <!-- Category Spinner -->
         <Spinner
             android:id="@+id/categorySpinner"
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_marginBottom="12dp"
             android:spinnerMode="dropdown" />
 
-        <!-- Word display (blanks) now under category -->
+        <!-- Word Display -->
         <TextView
             android:id="@+id/wordTextView"
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
-        <!-- Attempts counter now under the blanks -->
+        <!-- Attempts Counter -->
         <TextView
             android:id="@+id/attemptsTextView"
             android:layout_width="match_parent"
@@ -41,33 +41,85 @@
             android:gravity="center"
             android:layout_marginBottom="12dp" />
 
-        <!-- Hangman image layout -->
-
-        <!-- Letter Buttons Grid -->
-
-        <!-- Restart Button -->
-
+        <!-- Hangman Image Stack -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp">
 
+            <!-- Combined Wooden Structure with Rope -->
             <ImageView
-                android:id="@+id/bastapisi"
-                android:layout_width="381dp"
-                android:layout_height="208dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/bastapisi" />
+                android:src="@drawable/hangman_structure" />
+
+            <!-- Body Parts (initially invisible) -->
+            <ImageView
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                android:src="@drawable/hangman0" />
+
+            <ImageView
+                android:id="@+id/body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                android:src="@drawable/hangman1" />
+
+            <ImageView
+                android:id="@+id/right_arm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                android:src="@drawable/hangman2" />
+
+            <ImageView
+                android:id="@+id/left_arm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                android:src="@drawable/hangman3" />
+
+            <ImageView
+                android:id="@+id/right_leg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                android:src="@drawable/hangman4" />
+
+            <ImageView
+                android:id="@+id/left_leg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                android:src="@drawable/hangman5" />
 
         </FrameLayout>
+
+        <GridLayout
+            android:id="@+id/letterButtonsGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:columnCount="7">
+        </GridLayout>
 
         <Button
             android:id="@+id/restartButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="150dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="#FF5722"
             android:fontFamily="@font/joti_one"
             android:padding="8dp"
@@ -76,21 +128,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
-        <GridLayout
-            android:id="@+id/letterButtonsGrid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
-            android:columnCount="7"
-            android:src="@drawable/hangman0">
 
-        </GridLayout>
-
-        <ImageView
-            android:id="@+id/hangmanImageView"
-            android:layout_width="385dp"
-            android:layout_height="157dp"
-            android:scaleType="fitCenter" />
 
     </LinearLayout>
 </ScrollView>
