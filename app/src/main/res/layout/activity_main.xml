@@ -49,13 +49,17 @@
             android:layout_marginBottom="16dp">
 
             <!-- Combined Wooden Structure with Rope -->
+
+            <!-- Body Parts (initially invisible) -->
+
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="357dp"
+                android:layout_height="160dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="60dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/hangman_structure" />
 
-            <!-- Body Parts (initially invisible) -->
             <ImageView
                 android:id="@+id/head"
                 android:layout_width="match_parent"
@@ -101,8 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:visibility="invisible"
-                android:src="@drawable/hangman5" />
+                android:src="@drawable/hangman5"
+                android:visibility="invisible" />
 
         </FrameLayout>
 
