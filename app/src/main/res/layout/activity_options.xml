@@ -7,9 +7,19 @@
     android:padding="16dp"
     android:background="@drawable/paperbg">
 
+
+    <ImageView
+        android:id="@+id/imageViewHomeIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_home"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp" />
+
     <!-- Title Section with Header Image -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="327dp"
         android:layout_height="138dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/header"
@@ -30,7 +40,7 @@
 
     <!-- Music Section -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="353dp"
         android:layout_height="120dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/card_background"
@@ -54,8 +64,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="117dp"
+        android:layout_width="354dp"
+        android:layout_height="125dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/card_background"
         android:gravity="center"
@@ -107,7 +117,7 @@
 
     <!-- Difficulty Section -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="353dp"
         android:layout_height="134dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/card_background"
