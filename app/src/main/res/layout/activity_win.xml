@@ -48,7 +48,7 @@
     <ImageView
         android:id="@+id/stickmanWinImage"
         android:layout_width="348dp"
-        android:layout_height="351dp"
+        android:layout_height="360dp"
         android:layout_below="@id/winText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
