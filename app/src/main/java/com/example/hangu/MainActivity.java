@@ -1,5 +1,6 @@
 package com.example.hangu;
 
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private GridLayout lettersGrid;
     private Spinner categorySpinner;
 
-    // Body part views
-    private ImageView[] bodyParts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,29 +34,16 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+
         // UI references
         wordTextView = findViewById(R.id.wordTextView);
         attemptsTextView = findViewById(R.id.attemptsTextView);
         lettersGrid = findViewById(R.id.letterButtonsGrid);
         categorySpinner = findViewById(R.id.categorySpinner);
 
-        // Map body parts
-        bodyParts = new ImageView[]{
-                findViewById(R.id.head),
-                findViewById(R.id.body),
-                findViewById(R.id.right_arm),
-                findViewById(R.id.left_arm),
-                findViewById(R.id.right_leg),
-                findViewById(R.id.left_leg)
-        };
 
         setupCategorySpinner();
 
-        Button restartButton = findViewById(R.id.restartButton);
-        restartButton.setOnClickListener(v -> {
-            String category = (String) categorySpinner.getSelectedItem();
-            startNewGame(category);
-        });
     }
 
     private void setupCategorySpinner() {
@@ -118,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         boolean correct = game.guess(letter);
 
-        if (!correct) {
-            Toast.makeText(this, "Wrong guess!", Toast.LENGTH_SHORT).show();
-        }
 
         updateUI();
 
@@ -144,12 +127,6 @@ public class MainActivity extends AppCompatActivity {
         // Update attempts counter
         int remaining = game.getRemainingAttempts();
         attemptsTextView.setText("Attempts left : " + remaining);
-
-        // Update hangman body part visibility
-        int incorrectGuesses = 6 - remaining;
-        for (int i = 0; i < bodyParts.length; i++) {
-            bodyParts[i].setVisibility(i < incorrectGuesses ? View.VISIBLE : View.INVISIBLE);
-        }
 
         // Update letter buttons (disable guessed ones)
         for (int i = 0; i < lettersGrid.getChildCount(); i++) {

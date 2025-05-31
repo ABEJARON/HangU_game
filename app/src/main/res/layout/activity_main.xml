@@ -8,8 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
         <!-- Category Spinner -->
         <Spinner
@@ -42,6 +48,7 @@
             android:layout_marginBottom="12dp" />
 
         <!-- Hangman Image Stack -->
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -53,84 +60,32 @@
             <!-- Body Parts (initially invisible) -->
 
             <ImageView
-                android:layout_width="357dp"
-                android:layout_height="160dp"
+                android:layout_width="468dp"
+                android:layout_height="324dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="60dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/hangman_structure" />
+                android:src="@drawable/man_float" />
 
             <ImageView
-                android:id="@+id/head"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/balloon"
+                android:layout_width="547dp"
+                android:layout_height="189dp"
                 android:scaleType="fitCenter"
-                android:visibility="invisible"
-                android:src="@drawable/hangman0" />
-
-            <ImageView
-                android:id="@+id/body"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:visibility="invisible"
-                android:src="@drawable/hangman1" />
-
-            <ImageView
-                android:id="@+id/right_arm"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:visibility="invisible"
-                android:src="@drawable/hangman2" />
-
-            <ImageView
-                android:id="@+id/left_arm"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:visibility="invisible"
-                android:src="@drawable/hangman3" />
-
-            <ImageView
-                android:id="@+id/right_leg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:visibility="invisible"
-                android:src="@drawable/hangman4" />
-
-            <ImageView
-                android:id="@+id/left_leg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/hangman5"
-                android:visibility="invisible" />
+                android:src="@drawable/balloon" />
 
         </FrameLayout>
 
         <GridLayout
             android:id="@+id/letterButtonsGrid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="229dp"
             android:layout_marginBottom="15dp"
             android:columnCount="7">
+
         </GridLayout>
 
-        <Button
-            android:id="@+id/restartButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#FF5722"
-            android:fontFamily="@font/joti_one"
-            android:padding="8dp"
-            android:text="Restart"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+        </LinearLayout>
 
 
 

@@ -1,45 +1,43 @@
 package com.example.hangu;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private ImageView playImageView, optionsImageView, exitImageView;
+    private Button playButton, optionsButton, exitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        playImageView = findViewById(R.id.playImageView);
-        optionsImageView = findViewById(R.id.optionsImageView);
-        exitImageView = findViewById(R.id.exitImageView);
+        playButton = findViewById(R.id.playButton);
+        optionsButton = findViewById(R.id.optionsButton);
+        exitButton = findViewById(R.id.exitButton);
 
-        playImageView.setOnClickListener(v -> {
+        playButton.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
-        optionsImageView.setOnClickListener(v -> {
+        optionsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this, OptionsActivity.class);
             startActivity(intent);
         });
 
-        exitImageView.setOnClickListener(v -> showExitConfirmation());
+        exitButton.setOnClickListener(v -> showExitConfirmation());
     }
 
     private void showExitConfirmation() {
         new AlertDialog.Builder(this)
                 .setTitle("Exit Game")
                 .setMessage("Are you sure you want to exit?")
-                .setPositiveButton("Yes", (dialog, which) -> finishAffinity()) // Closes the app
+                .setPositiveButton("Yes", (dialog, which) -> finishAffinity())
                 .setNegativeButton("No", null)
                 .show();
     }

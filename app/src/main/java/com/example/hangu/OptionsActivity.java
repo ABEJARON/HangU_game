@@ -12,7 +12,7 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
-        Button backButton = findViewById(R.id.BackButton);
+        Button backButton = findViewById(R.id.applyChangesButton);
         backButton.setOnClickListener(v -> finish());
     }
 }
