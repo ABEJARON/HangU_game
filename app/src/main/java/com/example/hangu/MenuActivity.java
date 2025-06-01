@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActivity extends AppCompatActivity {
@@ -33,12 +34,34 @@ public class MenuActivity extends AppCompatActivity {
         exitButton.setOnClickListener(v -> showExitConfirmation());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // ✅ Start or resume global music
+        MusicManager.startMusic(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // ⚠️ Do not stop or pause music — it's managed globally now
+    }
+
     private void showExitConfirmation() {
         new AlertDialog.Builder(this)
                 .setTitle("Exit Game")
                 .setMessage("Are you sure you want to exit?")
-                .setPositiveButton("Yes", (dialog, which) -> finishAffinity())
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    MusicManager.stopMusic(); // ✅ Proper global stop
+                    finishAffinity();
+                })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // No need to stop music here; let MusicManager handle it
     }
 }

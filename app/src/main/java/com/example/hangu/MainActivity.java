@@ -1,13 +1,13 @@
 package com.example.hangu;
 
-
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView attemptsTextView;
     private GridLayout lettersGrid;
     private Spinner categorySpinner;
+    private MediaPlayer mediaPlayer; // 🎵 Added MediaPlayer for background music
 
 
     @Override
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        // 🎵 Start background music
+        mediaPlayer = MediaPlayer.create(this, R.raw.cute);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
         // UI references
         wordTextView = findViewById(R.id.wordTextView);
@@ -41,10 +46,19 @@ public class MainActivity extends AppCompatActivity {
         lettersGrid = findViewById(R.id.letterButtonsGrid);
         categorySpinner = findViewById(R.id.categorySpinner);
 
-
         setupCategorySpinner();
 
+        // 🎯 Check if a new category was passed from WinActivity
+        String categoryFromIntent = getIntent().getStringExtra("CATEGORY");
+        if (categoryFromIntent != null) {
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) categorySpinner.getAdapter();
+            int position = adapter.getPosition(categoryFromIntent);
+            if (position >= 0) {
+                categorySpinner.setSelection(position);
+            }
+        }
     }
+
 
     private void setupCategorySpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -96,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void onLetterClicked(char letter) {
         if (game.isGameOver()) {
             Toast.makeText(this, "Game is over. Please select a new category.", Toast.LENGTH_SHORT).show();
@@ -103,16 +119,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         boolean correct = game.guess(letter);
-
-
         updateUI();
 
         if (game.isGameWon()) {
-            Toast.makeText(this, "Congratulations! You won!", Toast.LENGTH_LONG).show();
+            // 🎉 Launch Win Activity
+            Intent intent = new Intent(this, WinActivity.class);
+            startActivity(intent);
         } else if (game.isGameOver()) {
-            Toast.makeText(this, "Game Over! The word was: " + game.getFullWord(), Toast.LENGTH_LONG).show();
+            // 💀 Launch Failed Activity
+            Intent intent = new Intent(this, FailedActivity.class);
+            intent.putExtra("ANSWER", game.getFullWord()); // optionally pass the correct word
+            startActivity(intent);
         }
     }
+
 
     private void updateUI() {
         // Update word with spaces
@@ -135,6 +155,17 @@ public class MainActivity extends AppCompatActivity {
                 char btnChar = ((Button) child).getText().toString().toLowerCase().charAt(0);
                 child.setEnabled(!game.getGuessedLetters().contains(btnChar));
             }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 🎵 Stop and release music resources
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 }

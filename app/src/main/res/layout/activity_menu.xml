@@ -7,13 +7,12 @@
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="367dp"
+        android:layout_width="395dp"
+        android:layout_height="374dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="32dp"
-        android:src="@drawable/new_logo" />
+        android:src="@drawable/new_sign" />
 
     <Button
         android:id="@+id/playButton"
