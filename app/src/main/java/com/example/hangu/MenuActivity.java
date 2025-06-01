@@ -37,8 +37,11 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // ✅ Start or resume global music
-        MusicManager.startMusic(this);
+
+        // Only start music if user enabled it in settings
+        if (MusicManager.isMusicEnabled(this)) {
+            MusicManager.startMusic(this);
+        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.hangu;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView attemptsTextView;
     private GridLayout lettersGrid;
     private Spinner categorySpinner;
-    private MediaPlayer mediaPlayer; // 🎵 Added MediaPlayer for background music
+
 
 
     @Override
@@ -34,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-
-        // 🎵 Start background music
-        mediaPlayer = MediaPlayer.create(this, R.raw.cute);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
 
         // UI references
         wordTextView = findViewById(R.id.wordTextView);
@@ -155,17 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 char btnChar = ((Button) child).getText().toString().toLowerCase().charAt(0);
                 child.setEnabled(!game.getGuessedLetters().contains(btnChar));
             }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // 🎵 Stop and release music resources
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
         }
     }
 }
