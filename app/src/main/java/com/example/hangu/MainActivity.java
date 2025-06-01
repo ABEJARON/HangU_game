@@ -7,12 +7,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView attemptsTextView;
     private GridLayout lettersGrid;
     private Spinner categorySpinner;
+    private LinearLayout balloonContainer;
 
     // Body part views
     private ImageView[] bodyParts;
+
+    // Balloon views to pop on incorrect guesses
+    private List<ImageView> balloonViews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main1);
 
         // UI references
         wordTextView = findViewById(R.id.wordTextView);
         attemptsTextView = findViewById(R.id.attemptsTextView);
         lettersGrid = findViewById(R.id.letterButtonsGrid);
         categorySpinner = findViewById(R.id.categorySpinner);
+        balloonContainer = findViewById(R.id.balloonContainer);
 
         // Map body parts
         bodyParts = new ImageView[]{
@@ -87,6 +96,23 @@ public class MainActivity extends AppCompatActivity {
         game = GameSession.startNewGame(category);
         updateUI();
         setupLetterButtons();
+
+        // Dynamically add balloons
+        balloonContainer.removeAllViews();
+        balloonViews.clear();
+
+        String phrase = game.getFullWord();
+        int balloonCount = phrase.replace(" ", "").length();
+
+        for (int i = 0; i < balloonCount; i++) {
+            ImageView balloon = new ImageView(this);
+            balloon.setImageResource(R.drawable.balloon); // Replace with your balloon drawable
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(60, 90);
+            params.setMargins(4, 0, 4, 0);
+            balloon.setLayoutParams(params);
+            balloonContainer.addView(balloon);
+            balloonViews.add(balloon);
+        }
     }
 
     private void setupLetterButtons() {
@@ -149,6 +175,11 @@ public class MainActivity extends AppCompatActivity {
         int incorrectGuesses = 6 - remaining;
         for (int i = 0; i < bodyParts.length; i++) {
             bodyParts[i].setVisibility(i < incorrectGuesses ? View.VISIBLE : View.INVISIBLE);
+        }
+
+        // Pop balloons visually for wrong guesses
+        for (int i = 0; i < incorrectGuesses && i < balloonViews.size(); i++) {
+            balloonViews.get(i).setVisibility(View.INVISIBLE);
         }
 
         // Update letter buttons (disable guessed ones)
